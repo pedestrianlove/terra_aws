@@ -23,7 +23,7 @@ resource "aws_subnet" "lab_public_subnet_b" {
   availability_zone = "us-east-1b"
 
   tags = {
-    Name = "lab-subnet-public2-us-east-1b"
+    Name = "lab-subnet-public2"
   }
 }
 resource "aws_subnet" "lab_private_subnet_b" {
@@ -32,7 +32,7 @@ resource "aws_subnet" "lab_private_subnet_b" {
   availability_zone = "us-east-1b"
 
   tags = {
-    Name = "lab-subnet-private2-us-east-1b"
+    Name = "lab-subnet-private2"
   }
 }
 
@@ -42,6 +42,10 @@ resource "aws_eip" "lab_eip" {
 resource "aws_nat_gateway" "lab_nat" {
   allocation_id = aws_eip.lab_eip.allocation_id
   subnet_id     = aws_subnet.lab_public_subnet_a.id
+
+  tags = {
+    Name = "lab-nat-public1-us-east-1a"
+  }
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
@@ -58,7 +62,7 @@ resource "aws_route_table" "lab_public_route_table" {
   }
 
   tags = {
-    Name = "Public Subnet Route Table"
+    Name = "lab-rtb-public"
   }
 }
 resource "aws_route_table" "lab_private_route_table" {
@@ -70,7 +74,7 @@ resource "aws_route_table" "lab_private_route_table" {
   }
 
   tags = {
-    Name = "Private Subnet Route Table"
+    Name = "lab-rtb-private1-us-east-1a"
   }
 }
 

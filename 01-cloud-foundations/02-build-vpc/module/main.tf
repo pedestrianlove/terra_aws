@@ -3,7 +3,7 @@ resource "aws_vpc" "lab_vpc" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "Lab VPC"
+    Name = "lab-vpc"
   }
 }
 
@@ -11,7 +11,7 @@ resource "aws_internet_gateway" "lab_igw" {
   vpc_id = aws_vpc.lab_vpc.id
 
   tags = {
-    Name = "Lab IGW"
+    Name = "lab-igw"
   }
 }
 
