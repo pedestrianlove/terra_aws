@@ -10,15 +10,21 @@ resource "aws_instance" "lab_instance" {
     aws_security_group.lab_security_group.id
   ]
   user_data = <<EOF
-    #!/bin/bash
-    # Install Apache Web Server and PHP
-    dnf install -y httpd wget php mariadb105-server
-    # Download Lab files
-    wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-100-ACCLFO-2/2-lab2-vpc/s3/lab-app.zip
-    unzip lab-app.zip -d /var/www/html/
-    # Turn on web server
-    chkconfig httpd on
-    service httpd start
+#!/bin/bash
+
+# Install Apache Web Server and PHP
+dnf install -y httpd wget php mariadb105-server ec2-instance-connect
+
+# Download Lab files
+wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-100-ACCLFO-2/2-lab2-vpc/s3/lab-app.zip
+unzip lab-app.zip -d /var/www/html/
+
+# Turn on web server
+chkconfig httpd on
+service httpd start
+
+# Test
+
   EOF
 
   tags = {
